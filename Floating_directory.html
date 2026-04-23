@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>Adam Leatherman - Directory</title>
+<link rel='stylesheet' href="aamaster.css">
+<style> 
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+img {
+  position: absolute;
+  width: 120px;
+  border-radius: 10%;
+  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 80%);
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 80%);
+}
+</style> 
+</head>
+
+<body>
+<h1 style="position:fixed; top:10px; left:10px; color:black;">CSC 233 HY Class Directory</h1>
+
+<a href="https://www.barsarslan.com/myphoto.jpg"><img src="https://www.barsarslan.com/myphoto.jpg"></a>
+<a href="https://www.imanibeharry.com/myphoto.jpg"><img src="https://www.imanibeharry.com/myphoto.jpg"></a>
+<a href="https://www.lburgee.com/myphoto.jpg"><img src="https://www.lburgee.com/myphoto.jpg"></a>
+<a href="https://www.jbutz.com/myphoto.jpg"><img src="https://www.jbutz.com/myphoto.jpg"></a>
+<a href="https://www.jceleste.com/myphoto.jpg"><img src="https://www.jceleste.com/myphoto.jpg"></a>
+<a href="https://www.calvinhyrkas.com/myphoto.jpg"><img src="https://www.calvinhyrkas.com/myphoto.jpg"></a>
+<a href="https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg"><img src="https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg"></a>
+<a href="https://www.christianlindor.com/myphoto.jpg"><img src="https://www.christianlindor.com/myphoto.jpg"></a>
+<a href="https://www.cmacioce.com/myphoto.jpg"><img src="https://www.cmacioce.com/myphoto.jpg"></a>
+<a href="https://www.kyleokeefe.com/myphoto.jpg"><img src="https://www.kyleokeefe.com/myphoto.jpg"></a>
+<a href="https://www.jazmineolmos.com/myphoto.jpg"><img src="https://www.jazmineolmos.com/myphoto.jpg"></a>
+<a href="https://www.sshaler.com/myphoto.jpg"><img src="https://www.sshaler.com/myphoto.jpg"></a>
+<a href="https://www.lukesstevens.com/myphoto.jpg"><img src="https://www.lukesstevens.com/myphoto.jpg"></a>
+
+<script>
+const images = document.querySelectorAll("img");
+
+images.forEach(img => {
+  // random starting position
+  let x = Math.random() * (window.innerWidth - 120);
+  let y = Math.random() * (window.innerHeight - 120);
+
+  // random speed
+  let dx = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? 1 : -1);
+  let dy = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? 1 : -1);
+
+  function move() {
+    x += dx;
+    y += dy;
+
+    // bounce off walls
+    if (x <= 0 || x + img.width >= window.innerWidth) dx *= -1;
+    if (y <= 0 || y + img.height >= window.innerHeight) dy *= -1;
+
+    img.style.left = x + "px";
+    img.style.top = y + "px";
+
+    requestAnimationFrame(move);
+  }
+
+  move();
+});
+</script>
+
+</body>
+</html>
