@@ -1,68 +1,171 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Adam Leatherman - Directory</title>
-<link rel='stylesheet' href="aamaster.css">
-<style> 
-body {
-  margin: 0;
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0f; overflow: hidden; width: 100vw; height: 100vh; }
+#title {
+  position: fixed; top: 14px; left: 16px;
+  color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 500;
+  font-family: sans-serif; z-index: 100; pointer-events: none;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+}
+.photo-wrap {
+  position: absolute;
+  width: 110px; height: 110px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+.photo-wrap:hover { filter: brightness(1.25); }
+.photo-wrap a {
+  display: block; width: 100%; height: 100%;
+  border-radius: 50%;
   overflow: hidden;
 }
-
-img {
-  position: absolute;
-  width: 120px;
-  border-radius: 10%;
-  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 80%);
-  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 50%, transparent 80%);
+.photo-wrap img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 2.5px solid rgba(255,255,255,0.18);
 }
-</style> 
+.glow-ring {
+  position: absolute; inset: -5px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.55;
+  filter: blur(6px);
+  z-index: -1;
+}
+#stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+</style>
 </head>
-
 <body>
-<h1 style="position:fixed; top:10px; left:10px; color:black;">CSC 233 HY Class Directory</h1>
 
-<a href="https://www.barsarslan.com/myphoto.jpg"><img src="https://www.barsarslan.com/myphoto.jpg"></a>
-<a href="https://www.imanibeharry.com/myphoto.jpg"><img src="https://www.imanibeharry.com/myphoto.jpg"></a>
-<a href="https://www.lburgee.com/myphoto.jpg"><img src="https://www.lburgee.com/myphoto.jpg"></a>
-<a href="https://www.jbutz.com/myphoto.jpg"><img src="https://www.jbutz.com/myphoto.jpg"></a>
-<a href="https://www.jceleste.com/myphoto.jpg"><img src="https://www.jceleste.com/myphoto.jpg"></a>
-<a href="https://www.calvinhyrkas.com/myphoto.jpg"><img src="https://www.calvinhyrkas.com/myphoto.jpg"></a>
-<a href="https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg"><img src="https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg"></a>
-<a href="https://www.christianlindor.com/myphoto.jpg"><img src="https://www.christianlindor.com/myphoto.jpg"></a>
-<a href="https://www.cmacioce.com/myphoto.jpg"><img src="https://www.cmacioce.com/myphoto.jpg"></a>
-<a href="https://www.kyleokeefe.com/myphoto.jpg"><img src="https://www.kyleokeefe.com/myphoto.jpg"></a>
-<a href="https://www.jazmineolmos.com/myphoto.jpg"><img src="https://www.jazmineolmos.com/myphoto.jpg"></a>
-<a href="https://www.sshaler.com/myphoto.jpg"><img src="https://www.sshaler.com/myphoto.jpg"></a>
-<a href="https://www.lukesstevens.com/myphoto.jpg"><img src="https://www.lukesstevens.com/myphoto.jpg"></a>
+<div id="title">CSC 233 HY — Class Directory</div>
+<canvas id="stars"></canvas>
 
 <script>
-const images = document.querySelectorAll("img");
+const photos = [
+  { src: "https://www.barsarslan.com/myphoto.jpg", href: "https://www.barsarslan.com/myphoto.jpg" },
+  { src: "https://www.imanibeharry.com/myphoto.jpg", href: "https://www.imanibeharry.com/myphoto.jpg" },
+  { src: "https://www.lburgee.com/myphoto.jpg", href: "https://www.lburgee.com/myphoto.jpg" },
+  { src: "https://www.jbutz.com/myphoto.jpg", href: "https://www.jbutz.com/myphoto.jpg" },
+  { src: "https://www.jceleste.com/myphoto.jpg", href: "https://www.jceleste.com/myphoto.jpg" },
+  { src: "https://www.calvinhyrkas.com/myphoto.jpg", href: "https://www.calvinhyrkas.com/myphoto.jpg" },
+  { src: "https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg", href: "https://ajisbeast.github.io/Adam-Leatherman-Website/myphoto.jpg" },
+  { src: "https://www.christianlindor.com/myphoto.jpg", href: "https://www.christianlindor.com/myphoto.jpg" },
+  { src: "https://www.cmacioce.com/myphoto.jpg", href: "https://www.cmacioce.com/myphoto.jpg" },
+  { src: "https://www.kyleokeefe.com/myphoto.jpg", href: "https://www.kyleokeefe.com/myphoto.jpg" },
+  { src: "https://www.jazmineolmos.com/myphoto.jpg", href: "https://www.jazmineolmos.com/myphoto.jpg" },
+  { src: "https://www.sshaler.com/myphoto.jpg", href: "https://www.sshaler.com/myphoto.jpg" },
+  { src: "https://www.lukesstevens.com/myphoto.jpg", href: "https://www.lukesstevens.com/myphoto.jpg" },
+];
 
-images.forEach(img => {
-  // random starting position
-  let x = Math.random() * (window.innerWidth - 120);
-  let y = Math.random() * (window.innerHeight - 120);
+const glowColors = [
+  "#7f77dd","#1d9e75","#d85a30","#d4537e","#378add",
+  "#639922","#ba7517","#e24b4a","#7f77dd","#1d9e75",
+  "#d85a30","#d4537e","#378add"
+];
 
-  // random speed
-  let dx = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? 1 : -1);
-  let dy = (Math.random() * 2 + 1) * (Math.random() < 0.5 ? 1 : -1);
+const SIZE = 110;
+const items = [];
 
-  function move() {
-    x += dx;
-    y += dy;
+function rand(min, max) { return Math.random() * (max - min) + min; }
 
-    // bounce off walls
-    if (x <= 0 || x + img.width >= window.innerWidth) dx *= -1;
-    if (y <= 0 || y + img.height >= window.innerHeight) dy *= -1;
+photos.forEach((p, i) => {
+  const wrap = document.createElement("div");
+  wrap.className = "photo-wrap";
 
-    img.style.left = x + "px";
-    img.style.top = y + "px";
+  const glow = document.createElement("div");
+  glow.className = "glow-ring";
+  glow.style.background = glowColors[i % glowColors.length];
 
-    requestAnimationFrame(move);
-  }
+  const link = document.createElement("a");
+  link.href = p.href;
+  link.target = "_blank";
 
-  move();
+  const img = document.createElement("img");
+  img.src = p.src;
+  img.alt = "";
+  img.onerror = () => { img.style.background = glowColors[i % glowColors.length]; img.src = ""; };
+
+  link.appendChild(img);
+  wrap.appendChild(glow);
+  wrap.appendChild(link);
+  document.body.appendChild(wrap);
+
+  const W = window.innerWidth, H = window.innerHeight;
+  const x = rand(0, W - SIZE), y = rand(0, H - SIZE);
+  const speed = rand(1.2, 2.6);
+  const angle = rand(0, Math.PI * 2);
+  const dx = Math.cos(angle) * speed;
+  const dy = Math.sin(angle) * speed;
+  const spin = rand(-1.2, 1.2);
+
+  items.push({ el: wrap, x, y, dx, dy, rot: rand(0, 360), spin });
 });
+
+function tick() {
+  const W = window.innerWidth, H = window.innerHeight;
+  for (const it of items) {
+    it.x += it.dx;
+    it.y += it.dy;
+    it.rot += it.spin;
+
+    if (it.x <= 0) { it.x = 0; it.dx = Math.abs(it.dx); }
+    if (it.x + SIZE >= W) { it.x = W - SIZE; it.dx = -Math.abs(it.dx); }
+    if (it.y <= 0) { it.y = 0; it.dy = Math.abs(it.dy); }
+    if (it.y + SIZE >= H) { it.y = H - SIZE; it.dy = -Math.abs(it.dy); }
+
+    it.el.style.transform = `translate(${it.x}px, ${it.y}px) rotate(${it.rot}deg)`;
+  }
+  requestAnimationFrame(tick);
+}
+
+tick();
+
+// Starfield
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < 120; i++) {
+    stars.push({
+      x: rand(0, canvas.width),
+      y: rand(0, canvas.height),
+      r: rand(0.3, 1.5),
+      a: rand(0.2, 0.8),
+      da: rand(0.002, 0.008) * (Math.random() < 0.5 ? 1 : -1)
+    });
+  }
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const s of stars) {
+    s.a += s.da;
+    if (s.a > 0.9 || s.a < 0.1) s.da *= -1;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+resizeCanvas();
+initStars();
+drawStars();
+window.addEventListener("resize", () => { resizeCanvas(); initStars(); });
 </script>
 
 </body>
