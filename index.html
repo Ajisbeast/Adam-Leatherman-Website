@@ -1,7 +1,8 @@
 <html>
 <head>
 <title>Adam Leatherman - Home</title>
-<style> 
+
+<style>
 body {
   background-color: #FAC48F;
   margin: 0;
@@ -26,9 +27,41 @@ body {
   text-decoration: underline;
 }
 
-/* PAGE CONTENT SPACING */
+/* CONTENT */
 .content {
   padding: 20px;
+}
+
+/* PROFILE + MOVIE HOVER */
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+#my_photo {
+  width: 200px;
+  border-radius: 10%;
+}
+
+/* hidden by default */
+.movie-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 220px;
+  white-space: nowrap;
+}
+
+/* show on hover */
+.profile-container:hover .movie-overlay {
+  display: block;
+}
+
+/* movie images */
+.movie-img {
+  height: 120px;
+  margin-right: 15px;
+  border-radius: 10px;
 }
 </style>
 
@@ -47,7 +80,8 @@ body {
   <a href="movies.html">Favorite Movies</a>
   <a href="movies_css.html">Favorite Movies (CSS)</a>
   <a href="Food.html">Favorite Foods</a>
-  <a href= "https://hotpink-lion.static2.website">Porfolio</a> 
+  <a href="breakfast.html">Breakfast</a>
+  <a href="https://hotpink-lion.static2.website">Portfolio</a>
 </div>
 
 <div class="content">
@@ -55,15 +89,16 @@ body {
 <h1>Adam Leatherman</h1>
 
 <div class="profile-container">
-        <img src="myphoto.jpg" width="200" id="my_photo">
-        <div class="movie-overlay">
-            <img src="movie1.png" class="movie-img">
-            <img src="movie2.png" class="movie-img">
-            <img src="movie3.png" class="movie-img">
-            <img src="movie4.png" class="movie-img">
-        </div>
-    </div>
-  
+  <img src="myphoto.jpg" id="my_photo">
+
+  <div class="movie-overlay">
+    <img src="movie1.png" class="movie-img">
+    <img src="movie2.png" class="movie-img">
+    <img src="movie3.png" class="movie-img">
+    <img src="movie4.png" class="movie-img">
+  </div>
+</div>
+
 <p>CSC 2333 HY Website Development</p>
 <p><i>Thursdays 12:30-1:45 PM</i></p>
 
@@ -72,39 +107,37 @@ body {
 <h2>My Favorite Foods</h2>
 
 <table cellpadding="15">
-  <tr>
-    <!-- TEXT COLUMN -->
-    <td valign="top">
-      Breakfast - <a href="Breakfest.png">Eggs and bacon</a><br><br>
-      Lunch - <a href="Lunch.png">Sandwich</a><br><br>
-      Dinner - <a href="Dinner.png">Sushi</a><br><br>
-      Snack - <a href="Snack.png">Snack</a>
-    </td>
+<tr>
+<td valign="top">
+Breakfast - <a href="Breakfest.png">Eggs and bacon</a><br><br>
+Lunch - <a href="Lunch.png">Sandwich</a><br><br>
+Dinner - <a href="Dinner.png">Sushi</a><br><br>
+Snack - <a href="Snack.png">Snack</a>
+</td>
 
-    <!-- IMAGE ROW -->
-    <td><img src="Breakfest.png" height="120"></td>
-    <td><img src="Lunch.png" height="120"></td>
-    <td><img src="Dinner.png" height="120"></td>
-    <td><img src="Snack.png" height="120"></td>
-  </tr>
+<td><img src="Breakfest.png" height="120"></td>
+<td><img src="Lunch.png" height="120"></td>
+<td><img src="Dinner.png" height="120"></td>
+<td><img src="Snack.png" height="120"></td>
+</tr>
 </table>
 
 <hr>
 
 <h2>My Favorite Binge Watches</h2>
 <ol>
-  <li>The Office</li>
-  <li>Solo Leveling</li>
-  <li>One Piece</li>
+<li>The Office</li>
+<li>Solo Leveling</li>
+<li>One Piece</li>
 </ol>
 
 <hr>
 
 <h2>My Favorite States</h2>
 <ul>
-  <li><a href="https://en.wikipedia.org/wiki/Florida">Florida</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/Texas">Texas</a></li>
-  <li><a href="https://en.wikipedia.org/wiki/North_Carolina">North Carolina</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Florida">Florida</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Texas">Texas</a></li>
+<li><a href="https://en.wikipedia.org/wiki/North_Carolina">North Carolina</a></li>
 </ul>
 
 <hr>
