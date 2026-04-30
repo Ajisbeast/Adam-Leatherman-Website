@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Floating Breakfast</title>
+
+<style>
+body {
+  background-color: #FAC48F;
+  overflow: hidden;
+}
+
+/* floating images */
+.food {
+  position: absolute;
+  width: 120px;
+  animation: float 10s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(300px, 150px);
+  }
+  50% {
+    transform: translate(-200px, 300px);
+  }
+  75% {
+    transform: translate(200px, -150px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+</style>
+
+</head>
+
+<body>
+
+<img src="Breakfest.png" class="food" style="top:50px; left:50px;">
+<img src="Breakfest.png" class="food" style="top:200px; left:300px; animation-duration: 12s;">
+<img src="Breakfest.png" class="food" style="top:400px; left:100px; animation-duration: 8s;">
+<img src="Breakfest.png" class="food" style="top:150px; left:600px; animation-duration: 14s;">
+<img src="Breakfest.png" class="food" style="top:300px; left:800px; animation-duration: 9s;">
+
+</body>
+</html>
